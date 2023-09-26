@@ -4,20 +4,31 @@ using namespace std;
 const int STACK_SIZE = 10;
 
 class Stack {
-private:
-	long items[STACK_SIZE];
-	int sp;
-
 public:
-	void initialize();
+	Stack();
+	Stack(int);
+	~Stack();
 	long top() const;
 	long pop();
 	void push(long);
-	long out_sp() const;
+
+private:
+	long *items;
+	int sp;
 };
 
-void Stack::initialize(){
+Stack::Stack() {
+	items = new long[STACK_SIZE];
 	sp = -1;
+}
+
+Stack::Stack(int size) {
+	items = new long[size];
+	sp = -1;
+}
+
+Stack::~Stack() {
+	delete[] items;
 }
 
 long Stack::top() const {
@@ -32,19 +43,12 @@ void Stack::push(long i) {
 	items[++sp] = i;
 }
 
-long Stack::out_sp() const {
-	return sp;
-}
-
 int main() {
 	Stack q;
-	q.initialize();
+	Stack r(15);
 	q.push(1);
 	long i = q.top();
-	cout << "sp = " << q.out_sp() << endl;
 	q.pop();
-	i = q.top();
-	cout << "sp = " << q.out_sp() << endl;
 	
 	return 0;
 }
